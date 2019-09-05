@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import actionTypes from '../Constants';
 
 class CompanyList extends Component {
@@ -12,11 +13,10 @@ class CompanyList extends Component {
     getRenderList() {
         const list = [];
         if (this.props.companyList && this.props.companyList.length) {
-            if (this.props.companyList && this.props.companyList.length) {
-                this.props.companyList.forEach(item => {
-                    list.push(<a key={item.companyId} href={['#/company/', item.companyId].join('')}>{item.companyName + ' --- ' + item.companyId}</a>);
-                });
-            }
+            this.props.companyList.forEach(item => {
+                list.push(<Link to={['/company/', item.companyId].join('')} key={item.companyId}>{item.companyName}</Link>);
+
+            });
         }
         return (
             <div className="testTask_company__cardContent">

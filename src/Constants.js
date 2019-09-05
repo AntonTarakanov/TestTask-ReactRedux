@@ -8,7 +8,8 @@ const CONSTANTS_LIST = [
     'COMPANY_UPDATE',
     'COMPANY_UPDATE_SUCCESS',
 
-    'ERROR' /* Для каждого можно добавить ошибку */
+    /* Для каждого можно добавить ошибку. По началу действия повесить лоадер. */
+    'ERROR'
 ];
 
 function createConstantsObj(constantsList) {
