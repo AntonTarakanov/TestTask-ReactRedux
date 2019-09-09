@@ -2,7 +2,9 @@ import actionTypes from './Constants'
 
 const initialState = {
     companyList: [],
-    companyRecord: {}
+    companyRecord: {},
+    loadingList: false,
+    loadingCompany: false
 };
 
 export function reducer(state = initialState, action) {
@@ -10,26 +12,34 @@ export function reducer(state = initialState, action) {
         return Object.assign({}, state, paramObj);
     }
 
+    let result;
+
     switch (action.type) {
+        case actionTypes.GET_COMPANY_LIST:
+            return getNewState({ loadingList: true });
+
         case actionTypes.GET_COMPANY_LIST_SUCCESS:
             if (action.companyList) {
-                return getNewState({ companyList: action.companyList });
+                result = getNewState({ companyList: action.companyList, loadingList: false });
             }
-            return state;
+            return result ? result : state;
 
         case actionTypes.COMPANY_READ_SUCCESS:
             if (action.companyRecord) {
-                return getNewState({ companyRecord: action.companyRecord });
+                result = getNewState({ companyRecord: action.companyRecord, loadingCompany: false });
             }
-            return state;
+            return result ? result : state;
+
+        case actionTypes.COMPANY_READ:
+            return getNewState({ loadingCompany: true });
 
         case actionTypes.COMPANY_UPDATE_SUCCESS:
             if (action.companyRecord && state.companyList.length) {
                 const item = state.companyList.find((item) => item.companyId === action.companyRecord.companyId);
                 item.companyName = action.companyRecord.companyName;
-                return getNewState({ companyRecord: action.companyRecord });
+                result = getNewState({ companyRecord: action.companyRecord });
             }
-            return state;
+            return result ? result : state;
 
         default:
             return state;

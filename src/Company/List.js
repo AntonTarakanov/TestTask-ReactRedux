@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import LoadingIndicator from '../LoadingIndicator';
 import actionTypes from '../Constants';
 
 class CompanyList extends Component {
@@ -26,19 +27,26 @@ class CompanyList extends Component {
     }
 
     render() {
-        return (
-            <div className="testTask_company__wrap">
-                Список компаний:
-                {this.getRenderList()}
-            </div>
-        )
+        let returnResult;
+        if (this.props.loadingList){
+            returnResult = (<LoadingIndicator />);
+        } else {
+            returnResult = (
+                <div className="testTask_company__wrap">
+                    Список компаний:
+                    {this.getRenderList()}
+                </div>
+            );
+        }
+        return returnResult;
     };
 }
 
 /* Что именно нужно передать в "props" для данного компонента */
 function mapStateToProps(state) {
     return {
-        companyList: state.baseReducer.companyList
+        companyList: state.baseReducer.companyList,
+        loadingList: state.baseReducer.loadingList
     };
 }
 
