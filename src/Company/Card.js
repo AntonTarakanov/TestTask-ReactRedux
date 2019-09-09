@@ -20,7 +20,7 @@ class CompanyList extends Component {
     };
 
     getFormView(){
-        if (!this.props.companyRecord.companyId) {
+        if (!this.props.companyRecord.companyId && window.location.hash.includes('edit')) {
             this.props.getCompanyRecord(window.location.hash.split('/')[3]);
         }
         return () => (

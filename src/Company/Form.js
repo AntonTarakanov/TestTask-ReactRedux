@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux';
+import actionTypes from '../Constants';
 
 class Form extends Component {
 
@@ -38,8 +40,16 @@ class Form extends Component {
     };
 }
 
+function mapStateToProps(state) {
+    return {
+        initialValues: state.baseReducer.companyRecord
+    };
+}
+
 Form = reduxForm({
-    form: 'company'
+    form: 'company',
+    enableReinitialize: true
 })(Form);
 
-export default Form
+export default connect(mapStateToProps, actionTypes)(Form);
+// export default Form
