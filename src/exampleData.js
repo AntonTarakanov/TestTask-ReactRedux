@@ -1,10 +1,11 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-// const mock = new MockAdapter(axios);
-const mock = new MockAdapter(axios, {delayResponse: 5000});
+const mock = new MockAdapter(axios, {delayResponse: 1000});
 const CommonData = getCommonData();
 
-mock.onGet('/getCompanyList').reply(200, getCompanyArray());
+mock.onGet('/getCompanyList').reply(() => {
+    return [200, getCompanyArray()]
+});
 
 mock.onGet(/\/companyRead\/\d+/).reply((requestInfo) => {
     return [200, getCompanyObj(requestInfo.url.split('/')[2])]
