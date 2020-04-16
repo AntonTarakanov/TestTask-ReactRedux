@@ -7,6 +7,10 @@ mock.onGet('/getCompanyList').reply(() => {
     return [200, getCompanyArray()]
 });
 
+mock.onGet('/getUniversalList').reply(() => {
+    return [200, getUniversalArray()]
+});
+
 mock.onGet(/\/companyRead\/\d+/).reply((requestInfo) => {
     return [200, getCompanyObj(requestInfo.url.split('/')[2])]
 });
@@ -40,6 +44,21 @@ export function getCompanyArray(){
             companyName: item.companyName
         };
     });
+}
+
+function getUniversalArray(){
+    return [
+        {
+            caption: 'Такая-то сумма',
+            value: 55,
+            type: 'Amount'
+        },
+        {
+            caption: 'Такая-то дата',
+            value: '12:12:12',
+            type: 'Date'
+        }
+    ];
 }
 
 export function getCompanyObj(companyId){

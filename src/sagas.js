@@ -89,10 +89,15 @@ function* getCompanyUpdateWatcher() {
     yield takeEvery(actionTypes.COMPANY_UPDATE, takeCompanyUpdate);
 }
 
-export default function* root() {
-    yield all([
+export default [
         fork(getCompanyListWatcher),
         fork(getCompanyReadWatcher),
         fork(getCompanyUpdateWatcher)
-    ])
-}
+    ];
+    /*yield all([
+        fork(getCompanyListWatcher),
+        fork(getCompanyReadWatcher),
+        fork(getCompanyUpdateWatcher)
+    ])*/
+/*
+}*/
